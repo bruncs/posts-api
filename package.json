@@ -1,0 +1,27 @@
+{
+  "name": "posts-api",
+  "version": "1.0.0",
+  "description": "NodeJS REST API for authenticated users CRUDing posts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bruncs/posts-api.git"
+  },
+  "author": "Bruno Correia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bruncs/posts-api/issues"
+  },
+  "homepage": "https://github.com/bruncs/posts-api#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
