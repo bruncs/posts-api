@@ -5,6 +5,6 @@ const routes = express.Router();
 
 const controllers = requireDir('./controllers');
 
-routes.get('/signup', controllers.authController.signup);
+routes.post('/signup', controllers.authController.signup);
 
 module.exports = routes;
