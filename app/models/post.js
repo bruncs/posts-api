@@ -6,6 +6,11 @@ const PostSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
+  },
   likes: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
   comments: [
     {
