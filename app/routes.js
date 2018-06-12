@@ -17,6 +17,7 @@ routes.use(authMiddleware);
 /**
  * Post
  */
-routes.post('/post', controllers.postController.create);
+routes.post('/posts', controllers.postController.create);
+routes.delete('/posts/:id', controllers.postController.destroy);
 
 module.exports = routes;
