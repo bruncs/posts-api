@@ -20,4 +20,9 @@ routes.use(authMiddleware);
 routes.post('/posts', controllers.postController.create);
 routes.delete('/posts/:id', controllers.postController.destroy);
 
+/**
+ * Like
+ */
+routes.post('/like/:id', controllers.likeController.toggle);
+
 module.exports = routes;
