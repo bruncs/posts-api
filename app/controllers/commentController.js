@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 
 const Post = mongoose.model('Post');
+const Comment = mongoose.model('Comment');
 
 module.exports = {
   async create(req, res, next) {
     try {
       const post = await Post.findById(req.params.id);
 
-      post.comments.push({ user: req.userId, comment: req.body.comment });
+      const comment = await Comment.create({ user: req.userId, content: req.body.comment });
+
+      post.comments.push(comment);
 
       post.save();
 
