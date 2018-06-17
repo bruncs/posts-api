@@ -8,6 +8,10 @@ module.exports = {
     try {
       const post = await Post.findById(req.params.id);
 
+      if (!post) {
+        return res.status(400).json({ error: "Post doesn't exist." });
+      }
+
       const comment = await Comment.create({ user: req.userId, content: req.body.comment });
 
       post.comments.push(comment);
