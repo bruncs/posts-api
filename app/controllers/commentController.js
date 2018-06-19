@@ -23,4 +23,14 @@ module.exports = {
       return next(err);
     }
   },
+
+  async destroy(req, res, next) {
+    try {
+      await Comment.findByIdAndRemove(req.params.id);
+
+      return res.send();
+    } catch (err) {
+      return next(err);
+    }
+  },
 };

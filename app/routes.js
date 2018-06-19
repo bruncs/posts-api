@@ -28,6 +28,7 @@ routes.post('/like/:id', controllers.likeController.toggle);
 /**
  * Comment
  */
-routes.post('/comment/:id', controllers.commentController.create);
+routes.post('/comments/:id', controllers.commentController.create);
+routes.delete('/comments/:id', controllers.commentController.destroy);
 
 module.exports = routes;
