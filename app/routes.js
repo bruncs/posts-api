@@ -31,4 +31,9 @@ routes.post('/like/:id', controllers.likeController.toggle);
 routes.post('/comments/:id', controllers.commentController.create);
 routes.delete('/comments/:id', controllers.commentController.destroy);
 
+/**
+ * Feed
+ */
+routes.get('/feed', controllers.userController.feed);
+
 module.exports = routes;
