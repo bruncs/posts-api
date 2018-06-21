@@ -7,14 +7,20 @@ module.exports = {
     try {
       const user = await User.findById(req.params.id);
 
-      if (!user) {
-        return res.status(400).json({ error: "User doesn't exist." });
+      if (!user || user.id === req.userId) {
+        return res.status(400).json({ error: 'Invalid request.' });
       }
 
-      const requested = user.friendRequests.indexOf(req.userId) !== -1;
+      const requested = user.friendRequests.indexOf(req.userId);
 
-      if (requested) {
+      if (requested !== -1) {
         return res.status(400).json({ error: 'You have already made this request.' });
+      }
+
+      const friend = user.friends.indexOf(req.userId);
+
+      if (friend !== -1) {
+        return res.status(400).json({ error: 'You are already friends.' });
       }
 
       user.friendRequests.push(req.userId);
@@ -30,14 +36,14 @@ module.exports = {
     try {
       const user = await User.findById(req.params.id);
 
-      if (!user) {
-        return res.status(400).json({ error: "User doesn't exist." });
+      if (!user || user.id === req.userId) {
+        return res.status(400).json({ error: 'Invalid request.' });
       }
 
       const requested = user.friendRequests.indexOf(req.userId);
 
       if (requested === -1) {
-        return res.status(400).json({ error: 'There is no open request.' });
+        return res.status(400).json({ error: 'Request not found.' });
       }
 
       user.friendRequests.splice(requested, 1);
@@ -51,6 +57,12 @@ module.exports = {
 
   async accept(req, res, next) {
     try {
+      const user = await User.findById(req.params.id);
+
+      if (!user || user.id === req.userId) {
+        return res.status(400).json({ error: 'Invalid request.' });
+      }
+
       const me = await User.findById(req.userId);
 
       const friend = me.friends.indexOf(req.params.id);
@@ -62,12 +74,14 @@ module.exports = {
       const requested = me.friendRequests.indexOf(req.params.id);
 
       if (requested === -1) {
-        return res.status(400).json({ error: 'This user did not sent you a friend request.' });
+        return res.status(400).json({ error: 'Request not found.' });
       }
 
       me.friendRequests.splice(requested, 1);
-      me.friends.pull(req.params.id);
+      me.friends.push(req.params.id);
+      user.friends.push(req.userId);
       await me.save();
+      await user.save();
 
       return res.json(me);
     } catch (err) {
@@ -79,16 +93,10 @@ module.exports = {
     try {
       const me = await User.findById(req.userId);
 
-      const friend = me.friends.indexOf(req.params.id);
-
-      if (friend === -1) {
-        return res.status(400).json({ error: 'You are not friends.' });
-      }
-
       const requested = me.friendRequests.indexOf(req.params.id);
 
       if (requested === -1) {
-        return res.status(400).json({ error: 'This user did not sent you a friend request.' });
+        return res.status(400).json({ error: 'Request not found.' });
       }
 
       me.friendRequests.splice(requested, 1);
@@ -102,6 +110,12 @@ module.exports = {
 
   async unfriend(req, res, next) {
     try {
+      const user = await User.findById(req.params.id);
+
+      if (!user || user.id === req.userId) {
+        return res.status(400).json({ error: 'Invalid request.' });
+      }
+
       const me = await User.findById(req.userId);
 
       const friend = me.friends.indexOf(req.params.id);
@@ -111,7 +125,9 @@ module.exports = {
       }
 
       me.friends.splice(friend, 1);
+      user.friends.splice(user.friends.indexOf(req.userId), 1);
       await me.save();
+      await user.save();
 
       return res.send(me);
     } catch (err) {
