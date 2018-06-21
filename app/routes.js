@@ -36,4 +36,15 @@ routes.delete('/comments/:id', controllers.commentController.destroy);
  */
 routes.get('/feed', controllers.userController.feed);
 
+/**
+ * Friendship
+ */
+routes.post('/friend/request/:id', controllers.friendshipController.request);
+routes.delete('/friend/unrequest/:id', controllers.friendshipController.unrequest);
+
+routes.post('/friend/accept/:id', controllers.friendshipController.accept);
+routes.delete('/friend/reject/:id', controllers.friendshipController.reject);
+
+routes.delete('/unfriend/:id', controllers.friendshipController.unfriend);
+
 module.exports = routes;
