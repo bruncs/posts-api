@@ -39,6 +39,7 @@ routes.get('/feed', controllers.userController.feed);
 /**
  * Friendship
  */
+routes.get('/friends/', controllers.friendshipController.list);
 routes.post('/friend/request/:id', controllers.friendshipController.request);
 routes.delete('/friend/unrequest/:id', controllers.friendshipController.unrequest);
 routes.post('/friend/accept/:id', controllers.friendshipController.accept);

@@ -134,4 +134,14 @@ module.exports = {
       return next(err);
     }
   },
+
+  async list(req, res, next) {
+    try {
+      const me = await User.findById(req.userId);
+
+      return res.json(me.friends);
+    } catch (err) {
+      return next(err);
+    }
+  },
 };
