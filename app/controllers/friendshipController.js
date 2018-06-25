@@ -137,9 +137,25 @@ module.exports = {
 
   async list(req, res, next) {
     try {
-      const me = await User.findById(req.userId);
+      const me = await User.findById(req.userId).populate({
+        path: 'friends',
+        select: 'name -_id',
+      });
 
       return res.json(me.friends);
+    } catch (err) {
+      return next(err);
+    }
+  },
+
+  async listRequests(req, res, next) {
+    try {
+      const me = await User.findById(req.userId).populate({
+        path: 'friendsRequests',
+        select: 'name -_id',
+      });
+
+      return res.json(me.friendsRequests);
     } catch (err) {
       return next(err);
     }
