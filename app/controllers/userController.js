@@ -11,7 +11,8 @@ module.exports = {
         .populate('comments')
         .populate({
           path: 'user',
-          select: 'name',
+          select: 'name avatar',
+          populate: { path: 'avatar' },
         })
         .sort('-createdAt');
 

@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  avatar: { type: mongoose.Schema.ObjectId, ref: 'Avatar' },
   friends: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
   friendRequests: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
   createdAt: {

@@ -15,6 +15,12 @@ routes.post('/signin', controllers.authController.signin);
 routes.use(authMiddleware);
 
 /**
+ * Avatar
+ */
+routes.post('/avatar', controllers.avatarController.create);
+routes.delete('/avatar/:id', controllers.avatarController.destroy);
+
+/**
  * Post
  */
 routes.post('/posts', controllers.postController.create);
