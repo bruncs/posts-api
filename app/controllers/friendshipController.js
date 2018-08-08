@@ -151,11 +151,11 @@ module.exports = {
   async listRequests(req, res, next) {
     try {
       const me = await User.findById(req.userId).populate({
-        path: 'friendsRequests',
-        select: 'name -_id',
+        path: 'friendRequests',
+        select: 'name _id',
       });
 
-      return res.json(me.friendsRequests);
+      return res.json(me.friendRequests);
     } catch (err) {
       return next(err);
     }
