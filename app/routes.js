@@ -18,6 +18,7 @@ routes.use(authMiddleware);
  * Avatar
  */
 routes.post('/avatar', controllers.avatarController.create);
+routes.put('/avatar/:id', controllers.avatarController.update);
 routes.delete('/avatar/:id', controllers.avatarController.destroy);
 
 /**

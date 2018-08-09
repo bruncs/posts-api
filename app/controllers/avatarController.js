@@ -23,6 +23,16 @@ module.exports = {
     }
   },
 
+  async update(req, res, next) {
+    try {
+      await Avatar.findByIdAndUpdate(req.params.id, { image: req.body.image });
+
+      return res.send();
+    } catch (err) {
+      return next(err);
+    }
+  },
+
   async destroy(req, res, next) {
     try {
       await Avatar.findByIdAndRemove(req.params.id);
