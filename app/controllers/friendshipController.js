@@ -139,7 +139,8 @@ module.exports = {
     try {
       const me = await User.findById(req.userId).populate({
         path: 'friends',
-        select: 'name -_id',
+        select: 'name _id',
+        populate: { path: 'avatar', select: 'image' },
       });
 
       return res.json(me.friends);
