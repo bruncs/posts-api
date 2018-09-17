@@ -10,11 +10,11 @@ module.exports = {
       const user = await User.findOne({ email }).populate('avatar');
 
       if (!user) {
-        return res.status(400).json({ error: 'Email not found.' });
+        return res.status(400).json({ error: 'Email não encontrado.' });
       }
 
       if (!(await user.compareHash(password))) {
-        return res.status(400).json({ error: 'Invalid password.' });
+        return res.status(400).json({ error: 'Senha inválida.' });
       }
 
       return res.json({
@@ -35,7 +35,7 @@ module.exports = {
       const { email } = req.body;
 
       if (await User.findOne({ email })) {
-        return res.status(400).json({ error: 'Email already registered.' });
+        return res.status(400).json({ error: 'Email já cadastrado.' });
       }
       const user = await User.create(req.body);
 

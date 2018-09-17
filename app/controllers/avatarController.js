@@ -9,7 +9,7 @@ module.exports = {
       const user = await User.findById(req.userId);
 
       if (!user) {
-        return res.status(400).json({ error: "User doesn't exist." });
+        return res.status(400).json({ error: 'Usuário inexistente.' });
       }
 
       const avatar = await Avatar.create({ image: req.body.image });

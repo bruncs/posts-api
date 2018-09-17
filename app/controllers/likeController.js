@@ -8,7 +8,7 @@ module.exports = {
       const post = await Post.findById(req.params.id);
 
       if (!post) {
-        return res.status(400).json({ error: "Post doesn't exist." });
+        return res.status(400).json({ error: 'Publicação inexistente.' });
       }
 
       const liked = post.likes.indexOf(req.userId);

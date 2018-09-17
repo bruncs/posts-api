@@ -8,19 +8,21 @@ module.exports = {
       const user = await User.findById(req.params.id);
 
       if (!user || user.id === req.userId) {
-        return res.status(400).json({ error: 'Invalid request.' });
+        return res.status(400).json({ error: 'Solicitação inválida.' });
       }
 
       const requested = user.friendRequests.indexOf(req.userId);
 
       if (requested !== -1) {
-        return res.status(400).json({ error: 'You have already made this request.' });
+        return res.status(400).json({ error: 'Você já fez esta solicitação.' });
       }
 
       const friend = user.friends.indexOf(req.userId);
 
       if (friend !== -1) {
-        return res.status(400).json({ error: 'You are already friends.' });
+        return res
+          .status(400)
+          .json({ error: 'Você já possui este usuário em sua lista de amigos.' });
       }
 
       user.friendRequests.push(req.userId);
@@ -37,13 +39,13 @@ module.exports = {
       const user = await User.findById(req.params.id);
 
       if (!user || user.id === req.userId) {
-        return res.status(400).json({ error: 'Invalid request.' });
+        return res.status(400).json({ error: 'Solicitação inválida.' });
       }
 
       const requested = user.friendRequests.indexOf(req.userId);
 
       if (requested === -1) {
-        return res.status(400).json({ error: 'Request not found.' });
+        return res.status(400).json({ error: 'Solicitação não encontrada.' });
       }
 
       user.friendRequests.splice(requested, 1);

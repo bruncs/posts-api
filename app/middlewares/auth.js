@@ -7,19 +7,19 @@ module.exports = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: 'No token provided.' });
+    return res.status(401).json({ error: 'Requisição sem token.' });
   }
 
   const parts = authHeader.split(' ');
 
   if (parts.length !== 2) {
-    return res.status(401).json({ error: 'Token error.' });
+    return res.status(401).json({ error: 'Erro no token.' });
   }
 
   const [scheme, token] = parts;
 
   if (scheme !== 'Bearer') {
-    return res.status(401).json({ error: 'Token malformatted.' });
+    return res.status(401).json({ error: 'Token malformatado.' });
   }
 
   try {
@@ -29,6 +29,6 @@ module.exports = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    return res.status(401).json({ error: 'Invalid token.' });
+    return res.status(401).json({ error: 'Token inválido.' });
   }
 };
