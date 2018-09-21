@@ -24,8 +24,8 @@ module.exports = {
 
   async profile(req, res, next) {
     try {
-      const me = await User.findById(req.userId);
-      const posts = await Post.find({ user: { $in: [me.id] } })
+      const user = await User.findById(req.body.id);
+      const posts = await Post.find({ user: { $in: [user.id] } })
         .populate('comments')
         .populate({
           path: 'user',
@@ -34,7 +34,7 @@ module.exports = {
         })
         .sort('-createdAt');
 
-      return res.json(posts);
+      return res.json({ user, posts });
     } catch (err) {
       return next(err);
     }
