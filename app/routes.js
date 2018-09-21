@@ -44,6 +44,11 @@ routes.delete('/comments/:id', controllers.commentController.destroy);
 routes.get('/feed', controllers.userController.feed);
 
 /**
+ * Profile
+ */
+routes.get('/profile', controllers.userController.profile);
+
+/**
  * Friendship
  */
 routes.get('/friends/list', controllers.friendshipController.list);
