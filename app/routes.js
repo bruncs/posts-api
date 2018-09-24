@@ -46,7 +46,7 @@ routes.get('/feed', controllers.userController.feed);
 /**
  * Profile
  */
-routes.get('/profile', controllers.userController.profile);
+routes.post('/profile', controllers.userController.profile);
 
 /**
  * Friendship
